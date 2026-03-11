@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <title>Modifier un Instrument</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+<div th:replace="template"></div>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h4> Modifier un Instrument</h4>
+        </div>
+        <div class="card-body">
+
+            <form th:action="@{/updateInstrument}"
+                  th:object="${instrument}" method="post">
+
+                <input type="hidden" th:field="*{idInstrument}"/>
+
+                <div class="form-group">
+                    <label>Nom de l'instrument</label>
+                    <input type="text" class="form-control"
+                           th:field="*{nomInstrument}"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Prix (DT)</label>
+                    <input type="number" step="0.01" class="form-control"
+                           th:field="*{prixInstrument}"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Genre Musical</label>
+                    <input type="text" class="form-control"
+                           th:field="*{genreMusical}"/>
+                </div>
+
+                <button type="submit" class="btn btn-warning">
+                     Modifier
+                </button>
+                <a th:href="@{/ListeInstruments}" class="btn btn-secondary">
+                     Retour à la liste
+                </a>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

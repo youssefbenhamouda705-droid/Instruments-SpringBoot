@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Liste des Instruments</title>
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+</head>
+<body>
+
+<div th:replace="template"></div>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h4> Liste des Instruments</h4>
+        </div>
+        <div class="card-body">
+
+            <a class="btn btn-success mb-3"
+               th:href="@{showCreate}">
+                Ajouter un Instrument
+            </a>
+
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prix (DT)</th>
+                        <th>Genre Musical</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="i : ${instruments.content}">
+                        <td th:text="${i.idInstrument}"></td>
+                        <td th:text="${i.nomInstrument}"></td>
+                        <td th:text="${i.prixInstrument}"></td>
+
+                        <!-- ✅ Affiche le nom du genre ou "Pas de Genre" -->
+                        <td th:if="${i.genreMusical != null}"
+                            th:text="${i.genreMusical.nomGenre}"></td>
+                        <td th:if="${i.genreMusical == null}"
+                            th:text="'Pas de Genre'"></td>
+
+                        <td>
+                            <!-- ✅ Bouton Modifier avec page et size -->
+                            <a class="btn btn-warning btn-sm"
+                               th:href="@{modifierInstrument(
+                                   id=${i.idInstrument},
+                                   page=${currentPage},
+                                   size=${size})}">
+                               ✏️ Modifier
+                            </a>
+
+                            <!-- ✅ Bouton Supprimer avec confirmation -->
+                            <a class="btn btn-danger btn-sm"
+                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet instrument ?')"
+                               th:href="@{supprimerInstrument(
+                                   id=${i.idInstrument},
+                                   page=${currentPage},
+                                   size=${size})}">
+                                Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ul class="nav nav-pills">
+                <li th:each="page, status : ${pages}" class="mr-1">
+                    <a th:class="${status.index == currentPage ?
+                                  'btn btn-primary' :
+                                  'btn btn-secondary'}"
+                       th:href="@{ListeInstruments(
+                           page=${status.index},
+                           size=${size})}"
+                       th:text="${status.index}">
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

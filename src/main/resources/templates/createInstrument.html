@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8">
+    <title>Ajouter un Instrument</title>
+    <link rel="stylesheet" type="text/css"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div th:replace="template"></div>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <h4>Ajouter un Instrument</h4>
+        </div>
+        <div class="card-body">
+
+            <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
+
+            <form th:action="@{/saveInstrument}"
+                  th:object="${instrument}" method="post">
+
+                <div class="form-group">
+                    <label>Nom de l'instrument</label>
+                    <input type="text" class="form-control"
+                           th:field="*{nomInstrument}"
+                           placeholder="Ex: Guitare, Piano..."/>
+                </div>
+
+                <div class="form-group">
+                    <label>Prix (DT)</label>
+                    <input type="number" step="0.01" class="form-control"
+                           th:field="*{prixInstrument}"
+                           placeholder="Ex: 1200.00"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Genre Musical</label>
+                    <input type="text" class="form-control"
+                           th:field="*{genreMusical}"
+                           placeholder="Ex: Rock, Jazz, Classique..."/>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Enregistrer
+                </button>
+                <a th:href="@{/ListeInstruments}" class="btn btn-secondary">
+                    Retour à la liste
+                </a>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

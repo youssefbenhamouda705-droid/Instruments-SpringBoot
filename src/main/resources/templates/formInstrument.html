@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <title>Formulaire Instrument</title>
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+</head>
+<body>
+
+<div th:replace="template"></div>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-dark text-white"
+             th:if="${mode == 'new'}">
+            Ajouter un Instrument
+        </div>
+        <div class="card-header bg-warning"
+             th:if="${mode == 'edit'}">
+             Modifier un Instrument
+        </div>
+
+        <div class="card-body">
+
+            <form th:action="@{saveInstrument}" method="post"
+                  th:object="${instrument}">
+                <input type="hidden" th:field="*{idInstrument}"/>
+                
+                <input type="hidden" name="page"
+                       th:value="${page != null ? page : 0}"/>
+                <input type="hidden" name="size"
+                       th:value="${size != null ? size : 2}"/>
+
+                
+                <div class="form-group">
+                    <label class="control-label">
+                         Nom de l'Instrument :
+                    </label>
+                    <input type="text" th:field="*{nomInstrument}"
+                           class="form-control"
+                           placeholder="Ex: Guitare, Piano..."/>
+                    
+                    <span th:if="${#fields.hasErrors('nomInstrument')}"
+                          th:errors="*{nomInstrument}"
+                          class="text-danger">
+                    </span>
+                   
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">
+                        Prix de l'Instrument (DT) :
+                    </label>
+                    <input type="number" th:field="*{prixInstrument}"
+                           class="form-control"
+                           placeholder="Ex: 1200"/>
+                    <span th:if="${#fields.hasErrors('prixInstrument')}"
+                          th:errors="*{prixInstrument}"
+                          class="text-danger">
+                    </span>
+                </div>
+
+                <!-- ✅ Dropdown : Genre Musical -->
+                <div class="form-group">
+                    <label class="control-label">
+                        🎵 Genre Musical :
+                    </label>
+
+                    <!-- Cas 1 : Mode EDIT avec genre existant -->
+                    <select name="genreMusical.idGenre"
+                            class="form-control"
+                            th:if="${mode == 'edit' and instrument.genreMusical != null}">
+                        <option th:each="g : ${genres}"
+                                th:value="${g.idGenre}"
+                                th:text="${g.nomGenre}"
+                                th:selected="${g.idGenre == instrument.genreMusical.idGenre}">
+                        </option>
+                        
+                    </select>
+
+                    <!-- Cas 2 : Mode NEW ou genre null -->
+                    <select name="genreMusical.idGenre"
+                            class="form-control"
+                            th:if="${mode == 'new' or instrument.genreMusical == null}">
+                        <option value="">-- Choisir un genre --</option>
+                        <option th:each="g : ${genres}"
+                                th:value="${g.idGenre}"
+                                th:text="${g.nomGenre}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">
+                        <span th:if="${mode == 'new'}"> Ajouter</span>
+                        <span th:if="${mode == 'edit'}"> Enregistrer</span>
+                    </button>
+                    <a th:href="@{ListeInstruments}"
+                       class="btn btn-secondary ml-2">
+                         Annuler
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</body>
+</html>
