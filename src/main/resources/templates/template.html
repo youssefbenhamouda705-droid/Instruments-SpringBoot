@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -11,27 +12,43 @@
 
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a class="navbar-brand" href="#"> Gestion Instruments</a>
+    <a class="navbar-brand" th:href="@{/ListeInstruments}">🎵 Gestion Instruments</a>
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" th:href="@{ListeInstruments}">Home</a>
+            <a class="nav-link" th:href="@{/ListeInstruments}">Home</a>
         </li>
-        <li class="nav-item dropdown">
+
+        <!-- Menu Instruments visible uniquement pour les ADMIN (Atelier 07) -->
+        <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
             <a class="nav-link dropdown-toggle" href="#"
                id="navbardrop" data-toggle="dropdown">Instruments</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" th:href="@{showCreate}">Ajouter</a>
-                <a class="dropdown-item" th:href="@{ListeInstruments}">Lister</a>
+                <a class="dropdown-item" th:href="@{/showCreate}">➕ Ajouter</a>
+                <a class="dropdown-item" th:href="@{/ListeInstruments}">📋 Lister</a>
             </div>
         </li>
     </ul>
+
+    <!-- Partie droite : utilisateur connecté + Logout -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
+            <!-- Affichage du nom de l'utilisateur connecté (Atelier 07) -->
             <a class="nav-link dropdown-toggle" href="#"
-               id="navbardrop2" data-toggle="dropdown">Youssef</a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Login</a>
-                <a class="dropdown-item" href="#">Logout</a>
+               id="navbardrop2" data-toggle="dropdown">
+                👤 <span sec:authentication="name">Utilisateur</span>
+                <!-- Affiche le badge ADMIN si l'utilisateur est admin -->
+                <span sec:authorize="hasRole('ADMIN')"
+                      class="badge badge-warning ml-1">ADMIN</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <!-- Déconnexion via formulaire POST (Atelier 07) -->
+                <form th:action="@{/logout}" method="post" class="dropdown-item p-0">
+                    <button type="submit"
+                            class="btn btn-link dropdown-item text-danger"
+                            onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?')">
+                        🚪 Se déconnecter
+                    </button>
+                </form>
             </div>
         </li>
     </ul>
@@ -41,4 +58,4 @@
 <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 
 </body>
-</html>
+</html>

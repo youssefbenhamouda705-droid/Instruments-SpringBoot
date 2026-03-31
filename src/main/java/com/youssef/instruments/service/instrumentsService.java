@@ -2,6 +2,7 @@ package com.youssef.instruments.service;
 
 import java.util.List;
 import org.springframework.data.domain.Page;
+import com.youssef.instruments.dto.InstrumentDTO;
 import com.youssef.instruments.model.GenreMusical;
 import com.youssef.instruments.model.instruments;
 
@@ -23,4 +24,10 @@ public interface instrumentsService {
     List<instruments> findByOrderByNomInstrumentAsc();
     List<instruments> trierInstrumentsNomsPrix();
     List<GenreMusical> getAllGenres();
-}
+
+    // ===== Méthodes DTO (Atelier DTO) =====
+    InstrumentDTO convertEntityToDto(instruments instrument);
+    instruments convertDtoToEntity(InstrumentDTO dto);
+    InstrumentDTO saveInstrumentDTO(InstrumentDTO dto);
+    InstrumentDTO getInstrumentDTO(Long id);
+}
