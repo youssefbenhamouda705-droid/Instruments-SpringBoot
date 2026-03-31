@@ -11,10 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-/**
- * Entité JPA représentant un utilisateur de l'application.
- * Utilisée par Spring Security pour l'authentification.
- */
 @Entity
 @Table(name = "app_user")
 public class AppUser {
@@ -29,16 +25,12 @@ public class AppUser {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<AppRole> roles = new ArrayList<>();
 
-    // ===================== Constructeurs =====================
-
     public AppUser() {}
 
     public AppUser(String username, String password) {
         this.username = username;
         this.password = password;
     }
-
-    // ===================== Getters / Setters =====================
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

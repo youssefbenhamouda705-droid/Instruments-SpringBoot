@@ -6,10 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-/**
- * Entité JPA représentant un rôle de sécurité (ex: ADMIN, USER).
- * Utilisée par Spring Security pour l'autorisation.
- */
 @Entity
 @Table(name = "app_role")
 public class AppRole {
@@ -20,15 +16,11 @@ public class AppRole {
 
     private String roleName;
 
-    // ===================== Constructeurs =====================
-
     public AppRole() {}
 
     public AppRole(String roleName) {
         this.roleName = roleName;
     }
-
-    // ===================== Getters / Setters =====================
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

@@ -33,7 +33,6 @@
                 <input type="hidden" name="size"
                        th:value="${size != null ? size : 2}"/>
 
-                
                 <div class="form-group">
                     <label class="control-label">
                          Nom de l'Instrument :
@@ -62,13 +61,11 @@
                     </span>
                 </div>
 
-                <!-- ✅ Dropdown : Genre Musical -->
                 <div class="form-group">
                     <label class="control-label">
                         🎵 Genre Musical :
                     </label>
 
-                    <!-- Cas 1 : Mode EDIT avec genre existant -->
                     <select name="genreMusical.idGenre"
                             class="form-control"
                             th:if="${mode == 'edit' and instrument.genreMusical != null}">
@@ -77,10 +74,8 @@
                                 th:text="${g.nomGenre}"
                                 th:selected="${g.idGenre == instrument.genreMusical.idGenre}">
                         </option>
-                        
                     </select>
 
-                    <!-- Cas 2 : Mode NEW ou genre null -->
                     <select name="genreMusical.idGenre"
                             class="form-control"
                             th:if="${mode == 'new' or instrument.genreMusical == null}">

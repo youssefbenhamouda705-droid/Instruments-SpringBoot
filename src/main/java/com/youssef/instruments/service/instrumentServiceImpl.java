@@ -99,13 +99,6 @@ public class instrumentServiceImpl implements instrumentsService {
         return genreMusicalRepository.findAll();
     }
 
-    // ===== Méthodes DTO (Atelier DTO) =====
-
-    /**
-     * Convertit une entité instruments en InstrumentDTO.
-     * Utilise ModelMapper pour la conversion automatique des champs communs,
-     * puis affecte manuellement les champs du genre musical.
-     */
     @Override
     public InstrumentDTO convertEntityToDto(instruments instrument) {
         InstrumentDTO dto = modelMapper.map(instrument, InstrumentDTO.class);
@@ -116,10 +109,6 @@ public class instrumentServiceImpl implements instrumentsService {
         return dto;
     }
 
-    /**
-     * Convertit un InstrumentDTO en entité instruments.
-     * Recherche le GenreMusical en BDD à partir de l'ID contenu dans le DTO.
-     */
     @Override
     public instruments convertDtoToEntity(InstrumentDTO dto) {
         instruments instrument = modelMapper.map(dto, instruments.class);
@@ -130,9 +119,6 @@ public class instrumentServiceImpl implements instrumentsService {
         return instrument;
     }
 
-    /**
-     * Enregistre un instrument à partir d'un DTO.
-     */
     @Override
     public InstrumentDTO saveInstrumentDTO(InstrumentDTO dto) {
         instruments instrument = convertDtoToEntity(dto);
@@ -140,12 +126,9 @@ public class instrumentServiceImpl implements instrumentsService {
         return convertEntityToDto(saved);
     }
 
-    /**
-     * Récupère un instrument en DTO à partir de son ID.
-     */
     @Override
     public InstrumentDTO getInstrumentDTO(Long id) {
         instruments instrument = instrumentRepository.findById(id).get();
         return convertEntityToDto(instrument);
     }
-}
+}

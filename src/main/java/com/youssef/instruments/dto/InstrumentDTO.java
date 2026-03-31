@@ -5,11 +5,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-/**
- * DTO (Data Transfer Object) pour l'entité Instrument.
- * Ce DTO est utilisé pour transférer les données entre la couche Controller
- * et la couche Service, sans exposer l'entité JPA directement.
- */
 public class InstrumentDTO {
 
     private Long idInstrument;
@@ -23,13 +18,9 @@ public class InstrumentDTO {
     @Max(value = 50000, message = "Le prix doit être inférieur ou égal à 50000")
     private Double prixInstrument;
 
-    // On transporte uniquement l'ID du genre au lieu de l'objet entier
     private Long genreMusicalId;
 
-    // Nom du genre pour l'affichage (lecture only)
     private String nomGenreMusical;
-
-    // ===================== Constructeurs =====================
 
     public InstrumentDTO() {}
 
@@ -41,8 +32,6 @@ public class InstrumentDTO {
         this.genreMusicalId = genreMusicalId;
         this.nomGenreMusical = nomGenreMusical;
     }
-
-    // ===================== Getters / Setters =====================
 
     public Long getIdInstrument() { return idInstrument; }
     public void setIdInstrument(Long idInstrument) { this.idInstrument = idInstrument; }

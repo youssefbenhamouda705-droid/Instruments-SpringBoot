@@ -24,24 +24,9 @@
             max-width: 420px;
             box-shadow: 0 25px 45px rgba(0, 0, 0, 0.4);
         }
-        .login-icon {
-            font-size: 60px;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .login-title {
-            color: #ffffff;
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-        .login-subtitle {
-            color: rgba(255,255,255,0.5);
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 0.9rem;
-        }
+        .login-icon { font-size: 60px; text-align: center; margin-bottom: 10px; }
+        .login-title { color: #ffffff; font-size: 1.8rem; font-weight: 700; text-align: center; margin-bottom: 5px; }
+        .login-subtitle { color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 30px; font-size: 0.9rem; }
         .form-control {
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.15);
@@ -55,14 +40,8 @@
             color: #ffffff;
             box-shadow: 0 0 0 0.2rem rgba(233, 69, 96, 0.25);
         }
-        .form-control::placeholder {
-            color: rgba(255,255,255,0.4);
-        }
-        .form-label {
-            color: rgba(255,255,255,0.8);
-            font-weight: 500;
-            margin-bottom: 6px;
-        }
+        .form-control::placeholder { color: rgba(255,255,255,0.4); }
+        .form-label { color: rgba(255,255,255,0.8); font-weight: 500; margin-bottom: 6px; }
         .btn-login {
             background: linear-gradient(135deg, #e94560, #c0392b);
             border: none;
@@ -74,7 +53,6 @@
             width: 100%;
             margin-top: 10px;
             transition: all 0.3s ease;
-            letter-spacing: 0.5px;
         }
         .btn-login:hover {
             background: linear-gradient(135deg, #c0392b, #a93226);
@@ -82,15 +60,7 @@
             box-shadow: 0 8px 20px rgba(233, 69, 96, 0.4);
             color: white;
         }
-        .alert-custom {
-            border-radius: 10px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-        .divider {
-            border-color: rgba(255,255,255,0.1);
-            margin: 25px 0;
-        }
+        .alert-custom { border-radius: 10px; font-size: 0.9rem; margin-bottom: 20px; }
         .credentials-box {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
@@ -98,22 +68,9 @@
             padding: 15px;
             margin-top: 20px;
         }
-        .credentials-box p {
-            color: rgba(255,255,255,0.7);
-            margin: 4px 0;
-            font-size: 0.85rem;
-        }
-        .credentials-box span {
-            color: #e94560;
-            font-weight: 600;
-        }
-        .credentials-title {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
+        .credentials-box p { color: rgba(255,255,255,0.7); margin: 4px 0; font-size: 0.85rem; }
+        .credentials-box span { color: #e94560; font-weight: 600; }
+        .credentials-title { color: rgba(255,255,255,0.5); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -123,37 +80,26 @@
     <h1 class="login-title">Bienvenue</h1>
     <p class="login-subtitle">Connectez-vous pour gérer vos instruments</p>
 
-    <!-- Message d'erreur -->
     <div th:if="${param.error}" class="alert alert-danger alert-custom" role="alert">
         ❌ Identifiant ou mot de passe incorrect.
     </div>
 
-    <!-- Message déconnexion -->
     <div th:if="${param.logout}" class="alert alert-success alert-custom" role="alert">
         ✅ Vous avez été déconnecté avec succès.
     </div>
 
-    <!-- Formulaire de connexion -->
     <form th:action="@{/login}" method="post">
-
         <div class="form-group mb-3">
             <label for="username" class="form-label">👤 Nom d'utilisateur</label>
-            <input type="text"
-                   id="username"
-                   name="username"
-                   class="form-control"
-                   placeholder="Ex: admin, user1"
+            <input type="text" id="username" name="username"
+                   class="form-control" placeholder="Ex: admin, user1"
                    required autofocus/>
         </div>
 
         <div class="form-group mb-3">
             <label for="password" class="form-label">🔒 Mot de passe</label>
-            <input type="password"
-                   id="password"
-                   name="password"
-                   class="form-control"
-                   placeholder="••••••••"
-                   required/>
+            <input type="password" id="password" name="password"
+                   class="form-control" placeholder="••••••••" required/>
         </div>
 
         <button type="submit" class="btn btn-login">
@@ -161,7 +107,6 @@
         </button>
     </form>
 
-    <!-- Informations de connexion pour la démo -->
     <div class="credentials-box">
         <p class="credentials-title">🔑 Comptes de démonstration</p>
         <p>👑 Admin &nbsp;&nbsp; login: <span>admin</span> &nbsp; / &nbsp; pass: <span>123</span></p>

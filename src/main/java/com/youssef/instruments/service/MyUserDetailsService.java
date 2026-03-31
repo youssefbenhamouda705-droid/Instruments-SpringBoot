@@ -12,15 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.youssef.instruments.model.AppRole;
 import com.youssef.instruments.model.AppUser;
 import com.youssef.instruments.repos.AppUserRepository;
 
-/**
- * Service personnalisé d'authentification Spring Security.
- * Charge les utilisateurs depuis la base de données via JPA.
- * Implémente UserDetailsService (Atelier 08).
- */
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
@@ -30,20 +24,17 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        // Recherche de l'utilisateur dans la BDD
         AppUser appUser = appUserRepository.findByUsername(username);
 
         if (appUser == null) {
             throw new UsernameNotFoundException("Utilisateur introuvable : " + username);
         }
 
-        // Conversion des rôles en GrantedAuthority pour Spring Security
         List<GrantedAuthority> authorities = appUser.getRoles()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName()))
                 .collect(Collectors.toList());
 
-        // Construction de l'objet UserDetails utilisé par Spring Security
         return new User(appUser.getUsername(), appUser.getPassword(), authorities);
     }
 }

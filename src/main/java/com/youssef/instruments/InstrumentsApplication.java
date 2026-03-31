@@ -40,7 +40,6 @@ public class InstrumentsApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // ===== Initialisation des instruments (si BDD vide) =====
         if (genreMusicalRepository.count() == 0) {
 
             GenreMusical rock = genreMusicalRepository.save(
@@ -62,27 +61,19 @@ public class InstrumentsApplication implements CommandLineRunner {
                 new instruments(null, "Saxophone", 1800.0, jazz));
         }
 
-        // ===== Initialisation des rôles et utilisateurs (Atelier 08) =====
         if (appRoleRepository.count() == 0) {
 
-            // Création des rôles
             AppRole roleAdmin = appRoleRepository.save(new AppRole("ADMIN"));
             AppRole roleUser = appRoleRepository.save(new AppRole("USER"));
 
-            // Création de l'utilisateur admin (mot de passe haché avec BCrypt)
             AppUser admin = new AppUser("admin", passwordEncoder.encode("123"));
             admin.getRoles().add(roleAdmin);
             admin.getRoles().add(roleUser);
             appUserRepository.save(admin);
 
-            // Création de l'utilisateur standard
             AppUser user1 = new AppUser("user1", passwordEncoder.encode("123"));
             user1.getRoles().add(roleUser);
             appUserRepository.save(user1);
-
-            System.out.println("=== Utilisateurs initialisés ===");
-            System.out.println("admin / 123  => rôles: ADMIN + USER");
-            System.out.println("user1 / 123  => rôle: USER");
         }
     }
-}
+}

@@ -60,16 +60,13 @@
     <div class="error-icon">🚫</div>
     <p class="error-code">403</p>
     <h1 class="error-title">Accès Refusé</h1>
-
     <div class="user-info">
         Connecté en tant que : <strong sec:authentication="name">utilisateur</strong>
     </div>
-
     <p class="error-msg">
         Vous n'avez pas les permissions nécessaires pour accéder à cette page.<br>
         Cette action est réservée aux administrateurs.
     </p>
-
     <a th:href="@{/ListeInstruments}" class="btn-home">
         🏠 Retour à l'accueil
     </a>

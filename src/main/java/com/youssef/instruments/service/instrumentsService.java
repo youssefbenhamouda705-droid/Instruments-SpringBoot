@@ -25,9 +25,8 @@ public interface instrumentsService {
     List<instruments> trierInstrumentsNomsPrix();
     List<GenreMusical> getAllGenres();
 
-    // ===== Méthodes DTO (Atelier DTO) =====
     InstrumentDTO convertEntityToDto(instruments instrument);
     instruments convertDtoToEntity(InstrumentDTO dto);
     InstrumentDTO saveInstrumentDTO(InstrumentDTO dto);
     InstrumentDTO getInstrumentDTO(Long id);
-}
+}

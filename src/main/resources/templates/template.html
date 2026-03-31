@@ -17,8 +17,6 @@
         <li class="nav-item">
             <a class="nav-link" th:href="@{/ListeInstruments}">Home</a>
         </li>
-
-        <!-- Menu Instruments visible uniquement pour les ADMIN (Atelier 07) -->
         <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
             <a class="nav-link dropdown-toggle" href="#"
                id="navbardrop" data-toggle="dropdown">Instruments</a>
@@ -28,20 +26,15 @@
             </div>
         </li>
     </ul>
-
-    <!-- Partie droite : utilisateur connecté + Logout -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
-            <!-- Affichage du nom de l'utilisateur connecté (Atelier 07) -->
             <a class="nav-link dropdown-toggle" href="#"
                id="navbardrop2" data-toggle="dropdown">
                 👤 <span sec:authentication="name">Utilisateur</span>
-                <!-- Affiche le badge ADMIN si l'utilisateur est admin -->
                 <span sec:authorize="hasRole('ADMIN')"
                       class="badge badge-warning ml-1">ADMIN</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <!-- Déconnexion via formulaire POST (Atelier 07) -->
                 <form th:action="@{/logout}" method="post" class="dropdown-item p-0">
                     <button type="submit"
                             class="btn btn-link dropdown-item text-danger"
@@ -58,4 +51,4 @@
 <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 
 </body>
-</html>
+</html>

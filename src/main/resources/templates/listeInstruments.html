@@ -18,7 +18,6 @@
         </div>
         <div class="card-body">
 
-            <!-- Bouton "Ajouter" visible uniquement pour les ADMIN (Atelier 07) -->
             <a class="btn btn-success mb-3"
                th:href="@{/showCreate}"
                sec:authorize="hasRole('ADMIN')">
@@ -32,7 +31,6 @@
                         <th>Nom</th>
                         <th>Prix (DT)</th>
                         <th>Genre Musical</th>
-                        <!-- Colonne Actions visible uniquement pour les ADMIN (Atelier 07) -->
                         <th sec:authorize="hasRole('ADMIN')">Actions</th>
                     </tr>
                 </thead>
@@ -47,9 +45,7 @@
                         <td th:if="${i.genreMusical == null}"
                             th:text="'Pas de Genre'"></td>
 
-                        <!-- Cellule Actions visible uniquement pour ADMIN (Atelier 07) -->
                         <td sec:authorize="hasRole('ADMIN')">
-                            <!-- Bouton Modifier -->
                             <a class="btn btn-warning btn-sm"
                                th:href="@{/modifierInstrument(
                                    id=${i.idInstrument},
@@ -58,7 +54,6 @@
                                ✏️ Modifier
                             </a>
 
-                            <!-- Bouton Supprimer avec confirmation -->
                             <a class="btn btn-danger btn-sm"
                                onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet instrument ?')"
                                th:href="@{/supprimerInstrument(
@@ -72,7 +67,6 @@
                 </tbody>
             </table>
 
-            <!-- Pagination -->
             <ul class="nav nav-pills">
                 <li th:each="page, status : ${pages}" class="mr-1">
                     <a th:class="${status.index == currentPage ?
@@ -93,4 +87,4 @@
 <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
-</html>
+</html>
