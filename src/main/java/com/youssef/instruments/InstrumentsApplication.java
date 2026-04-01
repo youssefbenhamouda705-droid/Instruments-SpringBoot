@@ -49,16 +49,11 @@ public class InstrumentsApplication implements CommandLineRunner {
             GenreMusical classique = genreMusicalRepository.save(
                 new GenreMusical(null, "Classique", "Musique Classique", null));
 
-            instrumentService.saveInstrument(
-                new instruments(null, "Guitare", 1200.0, rock));
-            instrumentService.saveInstrument(
-                new instruments(null, "Piano", 5000.0, classique));
-            instrumentService.saveInstrument(
-                new instruments(null, "Violon", 3000.0, classique));
-            instrumentService.saveInstrument(
-                new instruments(null, "Batterie", 2500.0, jazz));
-            instrumentService.saveInstrument(
-                new instruments(null, "Saxophone", 1800.0, jazz));
+            instrumentService.saveInstrument(new instruments(null, "Guitare", 1200.0, rock));
+            instrumentService.saveInstrument(new instruments(null, "Piano", 5000.0, classique));
+            instrumentService.saveInstrument(new instruments(null, "Violon", 3000.0, classique));
+            instrumentService.saveInstrument(new instruments(null, "Batterie", 2500.0, jazz));
+            instrumentService.saveInstrument(new instruments(null, "Saxophone", 1800.0, jazz));
         }
 
         if (appRoleRepository.count() == 0) {

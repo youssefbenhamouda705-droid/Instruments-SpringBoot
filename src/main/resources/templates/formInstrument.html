@@ -9,76 +9,75 @@
 </head>
 <body>
 
-<div th:replace="template"></div>
+<div th:replace="~{template :: navbar}"></div>
 
 <div class="container mt-5">
-    <div class="card">
+    <div class="card shadow-sm">
         <div class="card-header bg-dark text-white"
              th:if="${mode == 'new'}">
-            Ajouter un Instrument
+            <h5 class="mb-0"> Ajouter un Instrument</h5>
         </div>
         <div class="card-header bg-warning"
              th:if="${mode == 'edit'}">
-             Modifier un Instrument
+            <h5 class="mb-0"> Modifier un Instrument</h5>
         </div>
 
         <div class="card-body">
 
-            <form th:action="@{saveInstrument}" method="post"
+            <form th:action="@{/saveInstrument}" method="post"
                   th:object="${instrument}">
+
                 <input type="hidden" th:field="*{idInstrument}"/>
-                
                 <input type="hidden" name="page"
                        th:value="${page != null ? page : 0}"/>
                 <input type="hidden" name="size"
-                       th:value="${size != null ? size : 2}"/>
+                       th:value="${size != null ? size : 5}"/>
 
                 <div class="form-group">
-                    <label class="control-label">
-                         Nom de l'Instrument :
+                    <label class="control-label font-weight-bold">
+                        Nom de l'Instrument :
                     </label>
                     <input type="text" th:field="*{nomInstrument}"
                            class="form-control"
                            placeholder="Ex: Guitare, Piano..."/>
-                    
                     <span th:if="${#fields.hasErrors('nomInstrument')}"
                           th:errors="*{nomInstrument}"
-                          class="text-danger">
+                          class="text-danger small">
                     </span>
-                   
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">
+                    <label class="control-label font-weight-bold">
                         Prix de l'Instrument (DT) :
                     </label>
                     <input type="number" th:field="*{prixInstrument}"
                            class="form-control"
-                           placeholder="Ex: 1200"/>
+                           placeholder="Ex: 1200" step="any"/>
                     <span th:if="${#fields.hasErrors('prixInstrument')}"
                           th:errors="*{prixInstrument}"
-                          class="text-danger">
+                          class="text-danger small">
                     </span>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">
-                        🎵 Genre Musical :
+                    <label class="control-label font-weight-bold">
+                        Genre Musical :
                     </label>
 
-                    <select name="genreMusical.idGenre"
+                    <select name="genreMusicalId"
                             class="form-control"
-                            th:if="${mode == 'edit' and instrument.genreMusical != null}">
+                            th:if="${mode == 'edit'}">
+                        <option value="">-- Choisir un genre --</option>
                         <option th:each="g : ${genres}"
                                 th:value="${g.idGenre}"
                                 th:text="${g.nomGenre}"
-                                th:selected="${g.idGenre == instrument.genreMusical.idGenre}">
+                                th:selected="${instrument.genreMusical != null and g.idGenre == instrument.genreMusical.idGenre}">
                         </option>
                     </select>
 
-                    <select name="genreMusical.idGenre"
+                    <select name="genreMusicalId"
                             class="form-control"
-                            th:if="${mode == 'new' or instrument.genreMusical == null}">
+                            th:if="${mode == 'new'}">
                         <option value="">-- Choisir un genre --</option>
                         <option th:each="g : ${genres}"
                                 th:value="${g.idGenre}"
@@ -87,12 +86,12 @@
                     </select>
                 </div>
 
-                <div class="mt-3">
+                <div class="mt-4">
                     <button type="submit" class="btn btn-primary">
                         <span th:if="${mode == 'new'}"> Ajouter</span>
                         <span th:if="${mode == 'edit'}"> Enregistrer</span>
                     </button>
-                    <a th:href="@{ListeInstruments}"
+                    <a th:href="@{/ListeInstruments(page=${page},size=${size})}"
                        class="btn btn-secondary ml-2">
                          Annuler
                     </a>

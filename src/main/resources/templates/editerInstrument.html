@@ -1,61 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <title>Modifier un Instrument</title>
-    <link rel="stylesheet" type="text/css"
+    <link rel="stylesheet"
           th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </head>
-
 <body>
 
-<div th:replace="template"></div>
+<div th:replace="~{template :: navbar}"></div>
 
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-header bg-dark text-white">
-            <h4> Modifier un Instrument</h4>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-warning">
+            <h5 class="mb-0"> Modifier un Instrument</h5>
         </div>
         <div class="card-body">
-
-            <form th:action="@{/updateInstrument}"
-                  th:object="${instrument}" method="post">
+            <form th:action="@{/saveInstrument}" method="post"
+                  th:object="${instrument}">
 
                 <input type="hidden" th:field="*{idInstrument}"/>
+                <input type="hidden" name="page" th:value="${page != null ? page : 0}"/>
+                <input type="hidden" name="size" th:value="${size != null ? size : 5}"/>
 
                 <div class="form-group">
-                    <label>Nom de l'instrument</label>
+                    <label class="font-weight-bold">Nom de l'instrument</label>
                     <input type="text" class="form-control"
                            th:field="*{nomInstrument}"/>
+                    <span th:if="${#fields.hasErrors('nomInstrument')}"
+                          th:errors="*{nomInstrument}"
+                          class="text-danger small"></span>
                 </div>
 
                 <div class="form-group">
-                    <label>Prix (DT)</label>
-                    <input type="number" step="0.01" class="form-control"
+                    <label class="font-weight-bold">Prix (DT)</label>
+                    <input type="number" step="any" class="form-control"
                            th:field="*{prixInstrument}"/>
+                    <span th:if="${#fields.hasErrors('prixInstrument')}"
+                          th:errors="*{prixInstrument}"
+                          class="text-danger small"></span>
                 </div>
 
                 <div class="form-group">
-                    <label>Genre Musical</label>
-                    <input type="text" class="form-control"
-                           th:field="*{genreMusical}"/>
+                    <label class="font-weight-bold">Genre Musical</label>
+                    <select name="genreMusicalId" class="form-control">
+                        <option value=""> Choisir un genre </option>
+                        <option th:each="g : ${genres}"
+                                th:value="${g.idGenre}"
+                                th:text="${g.nomGenre}"
+                                th:selected="${instrument.genreMusical != null and g.idGenre == instrument.genreMusical.idGenre}">
+                        </option>
+                    </select>
                 </div>
 
-                <button type="submit" class="btn btn-warning">
-                     Modifier
-                </button>
-                <a th:href="@{/ListeInstruments}" class="btn btn-secondary">
-                     Retour à la liste
-                </a>
-
+                <button type="submit" class="btn btn-warning">Enregistrer</button>
+                <a th:href="@{/ListeInstruments}" class="btn btn-secondary ml-2">✖ Annuler</a>
             </form>
         </div>
     </div>
 </div>
 
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>

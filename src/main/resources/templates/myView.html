@@ -1,7 +1,76 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <title>Accueil - Gestion des Instruments</title>
+    <link rel="stylesheet"
+          th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .hero-section {
+            text-align: center;
+            padding: 80px 20px;
+            color: white;
+        }
+        .hero-icon { font-size: 80px; }
+        .hero-title { font-size: 2.5rem; font-weight: 700; margin: 20px 0 10px; }
+        .hero-subtitle { color: rgba(255,255,255,0.65); font-size: 1.1rem; margin-bottom: 40px; }
+        .btn-hero {
+            background: linear-gradient(135deg, #e94560, #c0392b);
+            border: none;
+            border-radius: 10px;
+            padding: 14px 34px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(233, 69, 96, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+        .user-badge {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 8px 20px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
 <body>
-    <h1>Bienvenue dans mon application Instruments 🎸</h1>
-    <a href="/instruments/ListeInstruments">Voir la liste</a>
+
+<div th:replace="~{template :: navbar}"></div>
+
+<div class="hero-section">
+    <div class="hero-icon">🎸</div>
+    <h1 class="hero-title">Gestion des Instruments</h1>
+    <p class="hero-subtitle">Application de gestion des instruments de musique</p>
+
+    <div class="user-badge">
+        👤 Connecté en tant que : <strong sec:authentication="name">Utilisateur</strong>
+        <span sec:authorize="hasRole('ADMIN')" class="badge badge-warning ml-2">ADMIN</span>
+    </div>
+
+    <br/>
+    <a th:href="@{/ListeInstruments}" class="btn-hero">
+         Voir la liste des instruments
+    </a>
+</div>
+
+<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 </body>
 </html>
